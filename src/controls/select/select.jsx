@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { SelectStyled } from './select-styled';
+import Styled from './select-styled';
 
 const defaultProps = {
 	value: '',
@@ -21,9 +21,9 @@ const Select = ({ name, options, value, onChangeControl }) => {
 		));
 
 	return (
-		<SelectStyled name={name} defaultValue={value} onChange={onChangeSelect}>
+		<Styled.Select name={name} defaultValue={value} onChange={onChangeSelect}>
 			{renderOptions()}
-		</SelectStyled>
+		</Styled.Select>
 	);
 };
 

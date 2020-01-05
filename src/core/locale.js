@@ -18,4 +18,11 @@ export default {
 			},
 		],
 	},
+	addingExpenses: {
+		title: 'Добавь свой расход',
+		expenseNameLabel: 'Название расхода',
+		expenseNamePlaceholder: 'Например: Купил еды',
+		expenseTypeLabel: 'Категория расхода',
+		buttonLabel: 'Отправить',
+	},
 };

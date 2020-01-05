@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
 import AddingExpenses from '../adding-expenses';
+import Styled from './main-styled';
 // import { Switch, Route } from 'react-router-dom';
 
 const Main = () => {
 	return (
-		<main className="main">
+		<Styled.Main>
 			<AddingExpenses />
-		</main>
+		</Styled.Main>
 	);
 };
 

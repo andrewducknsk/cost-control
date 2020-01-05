@@ -1,25 +1,26 @@
 import React, { memo } from 'react';
+import Styled from './form-control-styled';
 
 const defaultProps = {
 	value: '',
 	label: '',
 	message: '',
-	onChangeForm: () => {},
+	onChange: () => {},
 };
 
-const FormControl = ({ label, control, onChangeForm, message, ...otherProps }) => {
-	const onChangeControl = (value, name) => onChangeForm(value, name);
+const FormControl = ({ label, control, onChange, message, ...otherProps }) => {
+	const onChangeControl = (value, name) => onChange(value, name);
 
 	const childProps = { ...otherProps, onChangeControl };
 
 	return (
-		<div>
+		<Styled.FormControl>
 			<label>
-				{label}
+				<Styled.LabelText>{label}</Styled.LabelText>
 				<control.type {...control.props} {...childProps} />
 			</label>
 			<div>{message}</div>
-		</div>
+		</Styled.FormControl>
 	);
 };
 

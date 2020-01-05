@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { InputStyled } from './text-input-styled';
+import Styled from './text-input-styled';
 
 const defaultProps = {
 	value: '',
@@ -14,7 +14,7 @@ const TextInput = ({ name, onChangeControl, value, type, placeholder }) => {
 		onChangeControl(value, name);
 	};
 
-	return <InputStyled name={name} type={type} value={value} onChange={onChange} placeholder={placeholder} />;
+	return <Styled.Input name={name} type={type} value={value} onChange={onChange} placeholder={placeholder} />;
 };
 
 TextInput.defaultProps = defaultProps;

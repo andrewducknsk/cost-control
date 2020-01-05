@@ -1,17 +1,19 @@
-import React, { memo, useRef } from 'react';
-import FormControl from '../form-control';
+import React, { memo, useContext, useRef } from 'react';
 import { Select, TextInput } from '../controls';
 import Form from '../form';
+import CoreContext from '../core/core-context';
+import Styled from './adding-expenses-styled';
 
 const AddingExpenses = () => {
+	const { addingExpenses } = useContext(CoreContext);
 	const formModel = useRef();
 
 	const defaultData = {
-		costName: {
+		expenseName: {
 			value: 'aaaa',
 			old: 'sss',
 		},
-		costNames: {
+		expenseType: {
 			value: 'b',
 		},
 	};
@@ -21,20 +23,26 @@ const AddingExpenses = () => {
 	};
 
 	return (
-		<div className="">
+		<Styled.AddingExpenses>
+			<Styled.Title>Добавь свой расход</Styled.Title>
 			<Form defaultData={defaultData} formRef={formModel}>
-				<form onSubmit={onSend}>
-					<FormControl
-						label="Название расхода"
-						name="costName"
+				<Styled.Form onSubmit={onSend}>
+					<Styled.FormControl
+						label={addingExpenses.expenseNameLabel}
+						name="expenseName"
 						control={TextInput}
-						placeholder={'Например: Купил еды'}
+						placeholder={addingExpenses.expenseNamePlaceholder}
 					/>
-					<FormControl label="Вид расхода" name="costNames" options={['a', 'b']} control={Select} />
-					<button type="submit">Submit</button>
-				</form>
+					<Styled.FormControl
+						label={addingExpenses.expenseTypeLabel}
+						name="expenseType"
+						options={['a', 'b']}
+						control={Select}
+					/>
+					<Styled.Button type="submit">{addingExpenses.buttonLabel}</Styled.Button>
+				</Styled.Form>
 			</Form>
-		</div>
+		</Styled.AddingExpenses>
 	);
 };
 

@@ -17,7 +17,7 @@ const Form = ({ children, defaultData, formRef }) => {
 
 	const [state, setState] = useState(getInitialState);
 
-	const onChangeForm = (value, name) => {
+	const onChange = (value, name) => {
 		const newData = state;
 		newData[name].value = value;
 
@@ -37,13 +37,9 @@ const Form = ({ children, defaultData, formRef }) => {
 	const parentElement = React.Children.only(children);
 
 	const childrenElements = React.Children.map(parentElement.props.children, child => {
-		if (typeof child.type === 'object') {
-			const newProps = { ...state[child.props.name], onChangeForm };
+		const newProps = { ...state[child.props.name], onChange };
 
-			return <child.type {...child.props} {...newProps} />;
-		}
-
-		return <child.type {...child.props} />;
+		return <child.type {...child.props} {...newProps} />;
 	});
 
 	return <parentElement.type {...parentElement.props}>{childrenElements}</parentElement.type>;

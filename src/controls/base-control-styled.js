@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const BaseControlStyled = tag => styled(tag)`
 	width: 100%;
+	margin-top: -8px;
 	padding: 8px 10px;
 	font-size: 16px;
 	line-height: 1.2;

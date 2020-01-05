@@ -1,16 +1,16 @@
 import React, { memo, useContext } from 'react';
 import CoreContext from '../core/core-context';
 import Navigation from '../navigation/navigation';
-import { HeaderStyled, H1Styled } from './header-styled';
+import Styled from './header-styled';
 
 const Header = () => {
 	const { header } = useContext(CoreContext);
 
 	return (
-		<HeaderStyled>
-			<H1Styled>{header.title}</H1Styled>
+		<Styled.Header>
+			<Styled.Title>{header.title}</Styled.Title>
 			<Navigation />
-		</HeaderStyled>
+		</Styled.Header>
 	);
 };
 
