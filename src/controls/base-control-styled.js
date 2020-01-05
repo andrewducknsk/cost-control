@@ -9,12 +9,17 @@ export const BaseControlStyled = tag => styled(tag)`
 	border: 1px solid black;
 	border-radius: 5px;
 	outline: none;
+	transition: border-color ease 0.2s;
 
 	&::placeholder {
 		color: gray;
 	}
 
 	&:hover {
-		border-color: blue;
+		border-color: mediumpurple;
+	}
+
+	&:focus {
+		border-color: purple;
 	}
 `;

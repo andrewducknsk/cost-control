@@ -6,7 +6,7 @@ const ButtonStyled = styled.button`
 	font-size: 20px;
 	line-height: 1.2;
 	color: white;
-	background: purple;
+	background: rebeccapurple;
 	border-radius: 25px;
 	border: none;
 	cursor: pointer;
@@ -14,7 +14,7 @@ const ButtonStyled = styled.button`
 	transition: background ease 0.2s;
 
 	&:hover {
-		background: #a300a3;
+		background: mediumpurple;
 	}
 `;
 

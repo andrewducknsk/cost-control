@@ -11,8 +11,10 @@ export const ListStyled = styled.ul`
 export const LinkStyled = styled(Link)`
 	padding: 5px 15px;
 	color: black;
+	transition: color ease 0.3s, background ease 0.3s;
 
 	&:hover {
-		background: aquamarine;
+		color: white;
+		background: mediumpurple;
 	}
 `;

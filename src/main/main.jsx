@@ -1,12 +1,14 @@
 import React, { memo } from 'react';
-import AddingExpenses from '../adding-expenses';
+import { Switch, Route } from 'react-router-dom';
 import Styled from './main-styled';
-// import { Switch, Route } from 'react-router-dom';
+import Greeting from '../greeting';
 
 const Main = () => {
 	return (
 		<Styled.Main>
-			<AddingExpenses />
+			<Switch>
+				<Route exact path="/" component={Greeting} />
+			</Switch>
 		</Styled.Main>
 	);
 };

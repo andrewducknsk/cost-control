@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const FormControlStyled = styled.div`
+	position: relative;
 	margin-bottom: 15px;
 `;
 

@@ -1,5 +1,5 @@
 import React, { memo, useContext, useRef } from 'react';
-import { Select, TextInput } from '../controls';
+import { DateInput, Select, TextInput } from '../controls';
 import Form from '../form';
 import CoreContext from '../core/core-context';
 import Styled from './adding-expenses-styled';
@@ -16,6 +16,9 @@ const AddingExpenses = () => {
 		expenseType: {
 			value: 'b',
 		},
+		expenseDate: {
+			value: '2017-06-01',
+		},
 	};
 
 	const onSend = e => {
@@ -24,7 +27,7 @@ const AddingExpenses = () => {
 
 	return (
 		<Styled.AddingExpenses>
-			<Styled.Title>Добавь свой расход</Styled.Title>
+			<Styled.Title>{addingExpenses.title}</Styled.Title>
 			<Form defaultData={defaultData} formRef={formModel}>
 				<Styled.Form onSubmit={onSend}>
 					<Styled.FormControl
@@ -38,6 +41,18 @@ const AddingExpenses = () => {
 						name="expenseType"
 						options={['a', 'b']}
 						control={Select}
+					/>
+					<Styled.FormControl
+						label={addingExpenses.expenseDateLabel}
+						name="expenseDate"
+						control={DateInput}
+					/>
+					<Styled.FormControl
+						label={addingExpenses.expenseAmountLabel}
+						name="expenseAmount"
+						placeholder={addingExpenses.expenseAmountPlaceholder}
+						type="number"
+						control={TextInput}
 					/>
 					<Styled.Button type="submit">{addingExpenses.buttonLabel}</Styled.Button>
 				</Styled.Form>
