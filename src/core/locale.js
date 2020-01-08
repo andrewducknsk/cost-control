@@ -9,12 +9,8 @@ export default {
 				label: 'Главная',
 			},
 			{
-				route: '/debts',
-				label: 'Долги',
-			},
-			{
-				route: '/income',
-				label: 'Доходы',
+				route: '/history',
+				label: 'История',
 			},
 		],
 	},
@@ -24,7 +20,7 @@ export default {
 			'Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-Бла-',
 		buttonLabel: 'Добавь свои расходы',
 	},
-	addingExpenses: {
+	addingNote: {
 		title: 'Добавь свой расход',
 		expenseNameLabel: 'Название расхода',
 		expenseNamePlaceholder: 'Например: Купил еды',
@@ -33,5 +29,25 @@ export default {
 		expenseAmountLabel: 'Сумма',
 		expenseAmountPlaceholder: 'Например: 1000',
 		buttonLabel: 'Отправить',
+	},
+	settingBar: {
+		title: 'Фильтры',
+		buttons: [
+			{
+				label: 'Расходы',
+				action: 'expenses',
+				styleType: 'secondary',
+			},
+			{
+				label: 'Доходы',
+				action: 'income',
+				styleType: 'secondary',
+			},
+			{
+				label: 'Сброс',
+				action: '',
+				styleType: 'secondary',
+			},
+		],
 	},
 };

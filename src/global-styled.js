@@ -9,6 +9,7 @@ const GlobalStyled = createGlobalStyle`
     font-family: sans-serif;
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
  }
 
   a {
@@ -19,6 +20,10 @@ const GlobalStyled = createGlobalStyle`
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  p {
+  margin: 0;
   }
 
   h1,

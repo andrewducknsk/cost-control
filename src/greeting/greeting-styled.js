@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Styled from '../controls/button-styled';
+import Styled from '../controls/button/button-styled';
 
 const GreetingStyled = styled.section``;
 

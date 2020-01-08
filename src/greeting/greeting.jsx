@@ -2,7 +2,7 @@ import React, { memo, useContext } from 'react';
 import CoreContext from '../core/core-context';
 import Styled from './greeting-styled';
 import { usePopup } from '../hooks';
-import AddingExpenses from '../adding-expenses';
+import AddingNote from '../adding-note';
 import Popup from '../popup';
 
 const Greeting = () => {
@@ -16,7 +16,7 @@ const Greeting = () => {
 			<Styled.Button onClick={togglePopup}>{greeting.buttonLabel}</Styled.Button>
 			{showPopup && (
 				<Popup onClose={togglePopup}>
-					<AddingExpenses />
+					<AddingNote />
 				</Popup>
 			)}
 		</Styled.Greeting>

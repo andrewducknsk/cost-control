@@ -3,7 +3,6 @@ import Styled from './text-input-styled';
 
 const defaultProps = {
 	value: '',
-	type: 'text',
 	placeholder: '',
 };
 
@@ -14,7 +13,7 @@ const TextInput = ({ name, onChangeControl, value, type, placeholder }) => {
 		onChangeControl(value, name);
 	};
 
-	return <Styled.Input name={name} type={type} value={value} onChange={onChange} placeholder={placeholder} />;
+	return <Styled.Input name={name} type="text" value={value} onChange={onChange} placeholder={placeholder} />;
 };
 
 TextInput.defaultProps = defaultProps;

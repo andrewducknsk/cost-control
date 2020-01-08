@@ -13,17 +13,15 @@ const PopupStyled = styled.div`
 	bottom: 0;
 	right: 0;
 	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	background: rgba(0, 0, 0, 0.5);
+	z-index: 100000;
 `;
 
 const PopupOuterStyled = styled.div`
 	position: relative;
-	z-index: 100000;
 	width: 500px;
 	min-height: 100px;
+	margin: 50px auto 0;
 	background: white;
 	border-radius: 15px;
 `;

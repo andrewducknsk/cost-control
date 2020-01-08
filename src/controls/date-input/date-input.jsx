@@ -17,7 +17,7 @@ const DateInput = ({ name, onChangeControl, value, iconUrl }) => {
 
 	return (
 		<>
-			<Styled.IconButton iconUrl={iconUrl} />
+			<Styled.IconButton iconUrl={iconUrl} type="button" />
 			<Styled.DateInput name={name} type="date" value={value} onChange={onChange} />
 		</>
 	);
