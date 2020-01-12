@@ -5,10 +5,16 @@ const showPopup = keyframes`
 	to {opacity: 1}
 `;
 
+const closePopup = keyframes`
+from { opacity: 1 }
+to {opacity: 0}
+`;
+
 const PopupStyled = styled.div`
-	animation-name: ${showPopup};
+	animation-name: ${props => (props.animation ? showPopup : closePopup)};
+	animation-fill-mode: forwards;
 	animation-duration: 0.15s;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	right: 0;

@@ -9,7 +9,7 @@ import { usePopup } from '../hooks';
 import SettingBar from '../setting-bar';
 
 const History = () => {
-	const [showPopup, togglePopup] = usePopup(false);
+	const [showPopup, scrollPosition, togglePopup] = usePopup(false);
 	const data = useSelector(state => state.history.data);
 	const filterType = useSelector(state => state.history.filterType);
 
@@ -42,11 +42,9 @@ const History = () => {
 		<Styled.History>
 			<Styled.Header>
 				<Styled.Title>{}</Styled.Title>
-				{showPopup && (
-					<Popup onClose={togglePopup}>
-						<AddingNote />
-					</Popup>
-				)}
+				<Popup onClose={togglePopup} scrollPosition={scrollPosition}>
+					<AddingNote />
+				</Popup>
 			</Styled.Header>
 			<SettingBar />
 			{renderItems()}

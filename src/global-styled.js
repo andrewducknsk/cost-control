@@ -5,11 +5,19 @@ const GlobalStyled = createGlobalStyle`
     box-sizing: border-box;
  }
 
+  html {
+    overflow-y: scroll;
+  }
+
  body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
     font-family: sans-serif;
     margin: 0;
     padding: 0;
-    overflow-y: scroll;
  }
 
   a {

@@ -6,7 +6,7 @@ import AddingNote from '../adding-note';
 import Popup from '../popup';
 
 const Greeting = () => {
-	const [showPopup, togglePopup] = usePopup(false);
+	const [showPopup, scrollPosition, togglePopup] = usePopup(false);
 	const { greeting } = useContext(CoreContext);
 
 	return (
@@ -15,7 +15,7 @@ const Greeting = () => {
 			<Styled.Description>{greeting.description}</Styled.Description>
 			<Styled.Button onClick={togglePopup}>{greeting.buttonLabel}</Styled.Button>
 			{showPopup && (
-				<Popup onClose={togglePopup}>
+				<Popup onClose={togglePopup} scrollPosition={scrollPosition}>
 					<AddingNote />
 				</Popup>
 			)}
