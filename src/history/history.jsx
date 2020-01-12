@@ -42,9 +42,11 @@ const History = () => {
 		<Styled.History>
 			<Styled.Header>
 				<Styled.Title>{}</Styled.Title>
-				<Popup onClose={togglePopup} scrollPosition={scrollPosition}>
-					<AddingNote />
-				</Popup>
+				{showPopup && (
+					<Popup onClose={togglePopup} scrollPosition={scrollPosition}>
+						<AddingNote />
+					</Popup>
+				)}
 			</Styled.Header>
 			<SettingBar />
 			{renderItems()}

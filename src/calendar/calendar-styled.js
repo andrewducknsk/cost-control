@@ -1,6 +1,10 @@
 import styled from 'styled-components';
+import { openAnimation, closeAnimation } from '../base-stylesheets/animation';
 
 const CalendarStyled = styled.div`
+	//animation-name: ${props => (props.type ? openAnimation : closeAnimation)};
+	//animation-fill-mode: forwards;
+	//animation-duration: 0.15s;
 	position: absolute;
 	top: 48px;
 	right: 0;
@@ -19,9 +23,14 @@ const CalendarHeaderStyled = styled.div`
 	align-items: center;
 `;
 
+const CalendarDateTitleStyled = styled.div`
+	width: 135px;
+	text-align: center;
+`;
+
 const CalendarDaysStyled = styled.div`
-	display: flex;
-	flex-wrap: wrap;
+	//display: flex;
+	//flex-wrap: wrap;
 	margin-top: 15px;
 `;
 
@@ -62,7 +71,8 @@ const CalendarButtonStyled = styled.button`
 
 export default {
 	Calendar: CalendarStyled,
-	CalendarHeader: CalendarHeaderStyled,
-	CalendarDays: CalendarDaysStyled,
-	CalendarButton: CalendarButtonStyled,
+	Header: CalendarHeaderStyled,
+	DateTitle: CalendarDateTitleStyled,
+	Days: CalendarDaysStyled,
+	Button: CalendarButtonStyled,
 };

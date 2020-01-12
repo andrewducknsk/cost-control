@@ -1,17 +1,8 @@
-import styled, { keyframes } from 'styled-components';
-
-const showPopup = keyframes`
-	from { opacity: 0 }
-	to {opacity: 1}
-`;
-
-const closePopup = keyframes`
-from { opacity: 1 }
-to {opacity: 0}
-`;
+import styled from 'styled-components';
+import { openAnimation, closeAnimation } from '../base-stylesheets/animation';
 
 const PopupStyled = styled.div`
-	animation-name: ${props => (props.animation ? showPopup : closePopup)};
+	animation-name: ${props => (props.animation ? openAnimation : closeAnimation)};
 	animation-fill-mode: forwards;
 	animation-duration: 0.15s;
 	position: fixed;
@@ -30,6 +21,7 @@ const PopupOuterStyled = styled.div`
 	margin: 50px auto 0;
 	background: white;
 	border-radius: 15px;
+	box-shadow: 0 0 25px -5px black;
 `;
 
 const PopupInnerStyled = styled.div`

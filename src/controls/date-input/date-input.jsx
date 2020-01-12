@@ -11,8 +11,13 @@ const defaultProps = {
 
 const DateInput = ({ name, onChangeControl, value, iconUrl }) => {
 	const [showCalendar, setShowCalendar] = useState(false);
-	const onChange = e => {
-		const { value, name } = e.target;
+
+	const getDateCalendar = date => {
+		onChangeControl(date, name);
+	};
+
+	const getDateInput = e => {
+		const { value } = e.target;
 
 		onChangeControl(value, name);
 	};
@@ -22,8 +27,8 @@ const DateInput = ({ name, onChangeControl, value, iconUrl }) => {
 	return (
 		<>
 			<Styled.IconButton iconUrl={iconUrl} onClick={toggleShowCalendar} type="button" />
-			<Calendar />
-			<Styled.DateInput name={name} type="date" value={value} onChange={onChange} />
+			{showCalendar && <Calendar onChange={getDateCalendar} onClose={toggleShowCalendar} />}
+			<Styled.DateInput name={name} type="date" value={value} onChange={getDateInput} />
 		</>
 	);
 };

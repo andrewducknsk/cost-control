@@ -1,22 +1,19 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import Styled from './popup-styled';
 
 const Popup = ({ children, onClose, scrollPosition }) => {
 	const [isShowAnimation, setIsShowAnimation] = useState(true);
+	const popupElement = useRef(null);
 
-	const onClosePopup = useCallback(
-		e => {
-			e.stopPropagation();
-			setIsShowAnimation(false);
+	const onClosePopup = useCallback(() => {
+		setIsShowAnimation(false);
 
-			setTimeout(() => {
-				onClose();
-				window.scrollTo(0, scrollPosition);
-			}, 150);
-		},
-		[onClose, scrollPosition]
-	);
+		setTimeout(() => {
+			onClose();
+			window.scrollTo(0, scrollPosition);
+		}, 150);
+	}, [onClose, scrollPosition]);
 
 	const closeKeyDownEsc = useCallback(
 		e => {
@@ -29,15 +26,29 @@ const Popup = ({ children, onClose, scrollPosition }) => {
 		[onClosePopup]
 	);
 
+	const closeOutClick = useCallback(
+		e => {
+			const isClickOutElement = e.path.every(item => item !== popupElement.current);
+			if (isClickOutElement) {
+				onClosePopup();
+			}
+		},
+		[onClosePopup]
+	);
+
 	useEffect(() => {
 		document.addEventListener('keydown', closeKeyDownEsc);
+		document.addEventListener('click', closeOutClick);
 
-		return () => document.removeEventListener('keydown', closeKeyDownEsc);
-	}, [closeKeyDownEsc]);
+		return () => {
+			document.removeEventListener('keydown', closeKeyDownEsc);
+			document.removeEventListener('click', closeOutClick);
+		};
+	}, [closeKeyDownEsc, closeOutClick]);
 
 	const renderPopup = () => (
 		<Styled.Popup animation={isShowAnimation}>
-			<Styled.PopupOuter>
+			<Styled.PopupOuter ref={popupElement}>
 				<Styled.PopupInner>{children}</Styled.PopupInner>
 				<Styled.PopupCloseButton onClick={onClosePopup} />
 			</Styled.PopupOuter>
