@@ -9,7 +9,8 @@ const CalendarStyled = styled.div`
 	top: 48px;
 	right: 0;
 	z-index: 5;
-	width: 250px;
+	max-width: 280px;
+	min-height: 252px;
 	padding: 20px;
 	background: white;
 	border: 1px solid rebeccapurple;
@@ -28,10 +29,26 @@ const CalendarDateTitleStyled = styled.div`
 	text-align: center;
 `;
 
-const CalendarDaysStyled = styled.div`
-	//display: flex;
-	//flex-wrap: wrap;
+const CalendarMonthStyled = styled.div`
 	margin-top: 15px;
+`;
+
+const CalendarWeekStyled = styled.div`
+	display: flex;
+	margin-top: 5px;
+`;
+
+const CalendarDayStyled = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+
+	&:hover {
+		border: 1px solid rgba(147, 112, 219, 0.5);
+	}
 `;
 
 const CalendarButtonStyled = styled.button`
@@ -73,6 +90,8 @@ export default {
 	Calendar: CalendarStyled,
 	Header: CalendarHeaderStyled,
 	DateTitle: CalendarDateTitleStyled,
-	Days: CalendarDaysStyled,
+	Month: CalendarMonthStyled,
+	Week: CalendarWeekStyled,
+	Day: CalendarDayStyled,
 	Button: CalendarButtonStyled,
 };

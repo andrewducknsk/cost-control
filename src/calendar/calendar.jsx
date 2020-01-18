@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Styled from './calendar-styled';
-import CalendarDay from './calendare-day';
+import CalendarWeek from './calendar-week';
 
 const monthName = {
 	1: 'Январь',
@@ -21,20 +21,29 @@ const Calendar = ({ onChange, onClose }) => {
 	// TODO: много new Date()
 	// TODO: анимировать так же как и попап (сдлеать хук)
 	// TODO: закрытие по аут клику в хук
-	// TODO: рендеринг дней по неделям
-	const [year, setYear] = useState(new Date().getFullYear());
-	const [month, setMonth] = useState(new Date().getMonth() + 1);
+	const date = new Date();
+	const [year, setYear] = useState(date.getFullYear());
+	const [month, setMonth] = useState(date.getMonth() + 1);
 	const calendarElement = useRef(null);
 
 	const getDaysOfMonth = () => {
-		const days = [];
 		const daysInMonth = new Date(year, month, 0).getDate();
 
-		for (let i = 1; i <= daysInMonth; i++) {
-			days.push(i);
-		}
-		return days;
+		return [...new Array(daysInMonth)].map((day, index) => index + 1);
 	};
+
+	const transformMonthToWeeks = () =>
+		getDaysOfMonth().reduce((accumulator, currentDay) => {
+			const weekIndex = Math.ceil(currentDay / 7);
+
+			if (!accumulator[weekIndex]) {
+				accumulator[weekIndex] = [];
+			}
+
+			accumulator[weekIndex] = [...accumulator[weekIndex], currentDay];
+
+			return accumulator;
+		}, {});
 
 	const onClickCalendar = e => e.preventDefault();
 
@@ -67,7 +76,25 @@ const Calendar = ({ onChange, onClose }) => {
 		[onNextMonth, onPrevMonth]
 	);
 
-	const onChoiceDate = day => {};
+	const transformDate = day => {
+		const currentDate = { day, month, year };
+
+		if (currentDate.day < 10) {
+			currentDate.day = `0${currentDate.day}`;
+		}
+
+		if (currentDate.month < 10) {
+			currentDate.month = `0${currentDate.month}`;
+		}
+
+		return `${currentDate.year}-${currentDate.month}-${currentDate.day}`;
+	};
+
+	const onChoiceDate = day => {
+		const a = transformDate(day);
+
+		onChange(a);
+	};
 
 	const closeCalendar = useCallback(
 		e => {
@@ -91,8 +118,14 @@ const Calendar = ({ onChange, onClose }) => {
 		};
 	}, [scrollCalendar, closeCalendar]);
 
-	const renderDays = () =>
-		getDaysOfMonth().map(day => <CalendarDay onClick={onChoiceDate} day={day} key={day} />);
+	const renderWeeks = () => {
+		const weeks = transformMonthToWeeks();
+		const weeksKeys = Object.keys(weeks);
+
+		return weeksKeys.map(weekIndex => (
+			<CalendarWeek days={weeks[weekIndex]} onClickDay={onChoiceDate} key={weekIndex} />
+		));
+	};
 
 	return (
 		<Styled.Calendar onClick={onClickCalendar} ref={calendarElement}>
@@ -101,7 +134,7 @@ const Calendar = ({ onChange, onClose }) => {
 				<Styled.DateTitle>{`${monthName[month]} ${year}`}</Styled.DateTitle>
 				<Styled.Button onClick={onNextMonth} />
 			</Styled.Header>
-			<Styled.Days>{renderDays()}</Styled.Days>
+			<Styled.Month>{renderWeeks()}</Styled.Month>
 		</Styled.Calendar>
 	);
 };

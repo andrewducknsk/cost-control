@@ -14,7 +14,6 @@ const AddingNote = () => {
 	const defaultData = {
 		expenseName: {
 			value: 'aaaa',
-			old: 'sss',
 		},
 		expenseType: {
 			value: 'b',
@@ -26,7 +25,6 @@ const AddingNote = () => {
 
 	const onSend = e => {
 		e.preventDefault();
-		console.log('%c adding-expenses ', 'color: #000; background-color: #95B46A', 'onSend');
 
 		const formValues = formModel.current.getValues();
 
