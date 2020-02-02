@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { BaseControlStyled } from '../base-control-styled';
+import { BaseControlStyled, ErrorControlStyled } from '../base-control-styled';
 
 const DateInputStyled = styled(BaseControlStyled('input'))`
+	${props => (props.status ? ErrorControlStyled : '')};
+
 	&::-webkit-calendar-picker-indicator {
 		display: none;
 	}

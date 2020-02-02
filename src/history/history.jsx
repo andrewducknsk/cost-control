@@ -1,16 +1,19 @@
-import React, { memo, useCallback } from 'react';
-// import CoreContext from '../core/core-context';
+import React, { memo, useCallback, useContext, useEffect } from 'react';
+import CoreContext from '../core/core-context';
 import { useSelector } from 'react-redux';
 import Styled from './history-styled';
 import HistoryItem from './history-item';
 import Popup from '../popup';
 import AddingNote from '../adding-note';
-import { usePopup } from '../hooks';
+import { useCustomDispatch, usePopup } from '../hooks';
 import SettingBar from '../setting-bar';
+import { actionTypes } from '../store/actions';
 
 const History = () => {
 	const [showPopup, scrollPosition, togglePopup] = usePopup(false);
+	const { history } = useContext(CoreContext);
 	const data = useSelector(state => state.history.data);
+	const fetchData = useCustomDispatch();
 	const filterType = useSelector(state => state.history.filterType);
 
 	const getFilteredData = useCallback(
@@ -24,9 +27,17 @@ const History = () => {
 		[data]
 	);
 
-	const renderItems = useCallback(
-		() =>
-			getFilteredData(filterType).map(item => (
+	useEffect(() => {
+		fetchData(actionTypes.FETCH_HISTORY);
+	}, []);
+
+	const renderItems = useCallback(() => {
+		if (data.size === 0) {
+			return <Styled.EmptyMessage>{history.emptyMessage}</Styled.EmptyMessage>;
+		}
+
+		return getFilteredData(filterType).map(item => {
+			return (
 				<HistoryItem
 					name={item.get('expenseName')}
 					type={item.get('expenseType')}
@@ -34,14 +45,14 @@ const History = () => {
 					amount={item.get('expenseAmount')}
 					key={item.get('id')}
 				/>
-			)),
-		[filterType, getFilteredData]
-	);
+			);
+		});
+	}, [data, history, filterType, getFilteredData]);
 
 	return (
 		<Styled.History>
 			<Styled.Header>
-				<Styled.Title>{}</Styled.Title>
+				<Styled.Title>{history.title}</Styled.Title>
 				{showPopup && (
 					<Popup onClose={togglePopup} scrollPosition={scrollPosition}>
 						<AddingNote />

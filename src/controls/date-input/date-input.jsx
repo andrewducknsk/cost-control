@@ -4,13 +4,13 @@ import calendarIcon from '../../icon/calendar-icon.svg';
 import Calendar from '../../calendar';
 
 const defaultProps = {
-	value: '2017-06-01',
 	showIcon: true,
 	iconUrl: calendarIcon,
 };
 
-const DateInput = ({ name, onChangeControl, value, iconUrl }) => {
+const DateInput = ({ name, onChangeControl, value, status, iconUrl }) => {
 	const [showCalendar, setShowCalendar] = useState(false);
+	const isError = status === 'error';
 
 	const getDateCalendar = date => {
 		onChangeControl(date, name);
@@ -28,7 +28,7 @@ const DateInput = ({ name, onChangeControl, value, iconUrl }) => {
 		<>
 			<Styled.IconButton iconUrl={iconUrl} onClick={toggleShowCalendar} type="button" />
 			{showCalendar && <Calendar onChange={getDateCalendar} onClose={toggleShowCalendar} />}
-			<Styled.DateInput name={name} type="date" value={value} onChange={getDateInput} />
+			<Styled.DateInput name={name} type="date" status={isError} value={value} onChange={getDateInput} />
 		</>
 	);
 };

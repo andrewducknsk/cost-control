@@ -6,7 +6,9 @@ const defaultProps = {
 	placeholder: '',
 };
 
-const NumberInput = ({ name, onChangeControl, value, placeholder }) => {
+const NumberInput = ({ name, onChangeControl, value, status, placeholder }) => {
+	const isError = status === 'error';
+
 	const onChange = e => {
 		const { value, name } = e.target;
 
@@ -19,6 +21,7 @@ const NumberInput = ({ name, onChangeControl, value, placeholder }) => {
 
 	return (
 		<Styled.NumberInput
+			status={isError}
 			name={name}
 			type="number"
 			value={value}

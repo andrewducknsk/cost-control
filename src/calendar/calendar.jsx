@@ -94,6 +94,7 @@ const Calendar = ({ onChange, onClose }) => {
 		const a = transformDate(day);
 
 		onChange(a);
+		onClose();
 	};
 
 	const closeCalendar = useCallback(

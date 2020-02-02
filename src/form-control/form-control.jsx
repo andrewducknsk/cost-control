@@ -19,7 +19,7 @@ const FormControl = ({ label, control, onChange, message, ...otherProps }) => {
 				<Styled.LabelText>{label}</Styled.LabelText>
 				<control.type {...control.props} {...childProps} />
 			</label>
-			<div>{message}</div>
+			<Styled.Message>{message}</Styled.Message>
 		</Styled.FormControl>
 	);
 };

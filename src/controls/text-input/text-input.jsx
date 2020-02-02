@@ -6,14 +6,25 @@ const defaultProps = {
 	placeholder: '',
 };
 
-const TextInput = ({ name, onChangeControl, value, type, placeholder }) => {
+const TextInput = ({ name, onChangeControl, value, status, placeholder }) => {
+	const isError = status === 'error';
+
 	const onChange = e => {
 		const { value, name } = e.target;
 
 		onChangeControl(value, name);
 	};
 
-	return <Styled.Input name={name} type="text" value={value} onChange={onChange} placeholder={placeholder} />;
+	return (
+		<Styled.Input
+			status={isError}
+			name={name}
+			type="text"
+			value={value}
+			onChange={onChange}
+			placeholder={placeholder}
+		/>
+	);
 };
 
 TextInput.defaultProps = defaultProps;

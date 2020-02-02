@@ -23,3 +23,11 @@ export const BaseControlStyled = tag => styled(tag)`
 		border-color: purple;
 	}
 `;
+
+export const ErrorControlStyled = `
+	border-color: red;
+	
+	&:hover,
+	&:focus {
+	border-color: red;
+`;

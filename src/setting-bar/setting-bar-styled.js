@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import Styled from '../controls/button/button-styled';
+import { Button } from '../controls';
 
-const FilterTitleStyled = styled.h3`
+const TitleStyled = styled.h3`
 	font-size: 14px;
 `;
 
-const FilterButtonStyled = styled(Styled.Button)`
+const ButtonStyled = styled(Button)`
 	width: 80px;
 	height: 25px;
 	font-size: 14px;
 `;
 
 export default {
-	FilterButton: FilterButtonStyled,
-	FilterTitle: FilterTitleStyled,
+	Button: ButtonStyled,
+	Title: TitleStyled,
 };

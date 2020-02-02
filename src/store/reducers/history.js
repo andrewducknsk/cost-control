@@ -1,37 +1,31 @@
 import { handleActions } from 'redux-actions';
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import { actionTypes } from '../actions';
 
 export const history = handleActions(
 	{
-		[actionTypes.POST_NOTE]: (state, { payload }) => ({
-			...state,
-			data: state.data.push(fromJS(payload)),
-		}),
 		[actionTypes.FILTER_HISTORY]: (state, { payload }) => ({
 			...state,
 			filterType: payload,
 		}),
+		[actionTypes.SUCCESS_FETCH_HISTORY]: (state, { payload }) => ({
+			...state,
+			data: fromJS(payload.data),
+			isLoading: false,
+			isFetched: true,
+		}),
+		[actionTypes.FETCH_HISTORY]: state => ({
+			...state,
+			isLoading: true,
+		}),
+		// TODO: ренэйм
+		[actionTypes.SUCCESS_POST_NOTE]: (state, { payload }) => ({
+			...state,
+			data: state.data.push(fromJS(payload.data)),
+		}),
 	},
 	{
-		data: fromJS([
-			{
-				expenseName: 'Eat',
-				expenseType: 'eat',
-				expenseDate: '2017-02-14',
-				expenseAmount: '45',
-				id: '1',
-				type: 'expenses',
-			},
-			{
-				expenseName: 'ZP',
-				expenseType: 'ZP',
-				expenseDate: '2017-02-14',
-				expenseAmount: '450',
-				id: '2',
-				type: 'income',
-			},
-		]),
+		data: new List(),
 		filterType: '',
 		isLoading: false,
 		isFetched: false,

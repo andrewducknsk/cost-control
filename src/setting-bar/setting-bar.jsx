@@ -7,7 +7,7 @@ const SettingBar = () => {
 
 	const renderButtons = () =>
 		settingBar.buttons.map(button => (
-			<Styled.FilterButton
+			<Styled.Button
 				label={button.label}
 				action={button.action}
 				styleType={button.styleType}
@@ -17,7 +17,7 @@ const SettingBar = () => {
 
 	return (
 		<section>
-			<Styled.FilterTitle>{settingBar.title}</Styled.FilterTitle>
+			<Styled.Title>{settingBar.title}</Styled.Title>
 			{renderButtons()}
 		</section>
 	);

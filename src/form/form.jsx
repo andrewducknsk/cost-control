@@ -6,7 +6,7 @@ const defaultProps = {
 
 const Form = ({ children, defaultData, formRef }) => {
 	const getInitialState = () => {
-		const defaultState = { value: '' };
+		const defaultState = { value: '', status: '', message: '', validators: [] };
 		const childNames = React.Children.map(children.props.children, child => child.props.name);
 		const newState = {};
 
@@ -17,11 +17,29 @@ const Form = ({ children, defaultData, formRef }) => {
 
 	const [state, setState] = useState(getInitialState);
 
-	const onChange = (value, name) => {
-		const newData = state;
-		newData[name].value = value;
+	// TODO: вынести в хук
+	const validation = (name, value) =>
+		state[name].validators.reduce(
+			(accumulator, item) => {
+				const resultValidator = item(value);
 
-		setState({ ...state, ...newData });
+				if (resultValidator.status === '') {
+					return accumulator;
+				}
+
+				accumulator = { ...item(value) };
+
+				return accumulator;
+			},
+			{ status: '', message: '' }
+		);
+
+	const isValid = () => Object.keys(state).some(controlName => state[controlName].status === 'error');
+
+	const onChange = (value, name) => {
+		const validationData = validation(name, value);
+
+		setState({ ...state, [name]: { ...state[name], ...validationData, value } });
 	};
 
 	const getValues = () => {
@@ -32,7 +50,7 @@ const Form = ({ children, defaultData, formRef }) => {
 		return values;
 	};
 
-	formRef.current = { getValues };
+	formRef.current = { getValues, isValid };
 
 	const parentElement = React.Children.only(children);
 

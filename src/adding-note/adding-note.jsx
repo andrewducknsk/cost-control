@@ -5,6 +5,8 @@ import CoreContext from '../core/core-context';
 import Styled from './adding-note-styled';
 import { actionTypes } from '../store/actions';
 import { useCustomDispatch } from '../hooks';
+import { dateFromFuture, maxLength, pattern } from '../validators';
+import require from '../validators/require';
 
 const AddingNote = () => {
 	const { addingNote } = useContext(CoreContext);
@@ -13,20 +15,36 @@ const AddingNote = () => {
 
 	const defaultData = {
 		expenseName: {
-			value: 'aaaa',
-		},
-		expenseType: {
-			value: 'b',
+			value: 'aas',
+			validators: [
+				maxLength({
+					length: 12,
+				}),
+				pattern({
+					pattern: /[<>'"/]/,
+					message: 'Используются запрещенные символы <>\'"/',
+				}),
+			],
 		},
 		expenseDate: {
-			value: '2017-06-01',
+			value: '2020-01-15',
+			validators: [dateFromFuture(), require()],
+		},
+		expenseAmount: {
+			value: 200,
+			validators: [require()],
 		},
 	};
 
 	const onSend = e => {
 		e.preventDefault();
+		const form = formModel.current;
 
-		const formValues = formModel.current.getValues();
+		if (form.isValid()) {
+			return;
+		}
+
+		const formValues = form.getValues();
 
 		postNote(actionTypes.POST_NOTE, formValues);
 	};

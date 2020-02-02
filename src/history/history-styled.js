@@ -6,16 +6,20 @@ const HistoryStyled = styled.section`
 	flex-direction: column;
 `;
 
-const HistoryItemHeaderStyled = styled.div`
+const HistoryHeaderStyled = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 `;
 
-const HistoryItemTitleStyled = styled.h2``;
+const HistoryTitleStyled = styled.h2``;
 
-const HistoryItemButton = styled(ButtonStyled.Button)`
-	position: absolute;
+const HistoryEmptyMessageStyled = styled.div`
+	margin-top: 25px;
+`;
+
+const HistoryButtonStyled = styled(ButtonStyled.Button)`
+	position: fixed;
 	bottom: 15px;
 	left: 50%;
 	width: 280px;
@@ -24,7 +28,8 @@ const HistoryItemButton = styled(ButtonStyled.Button)`
 
 export default {
 	History: HistoryStyled,
-	Header: HistoryItemHeaderStyled,
-	Title: HistoryItemTitleStyled,
-	Button: HistoryItemButton,
+	Title: HistoryTitleStyled,
+	Header: HistoryHeaderStyled,
+	EmptyMessage: HistoryEmptyMessageStyled,
+	Button: HistoryButtonStyled,
 };
