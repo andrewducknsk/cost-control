@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "checkJs": false,
+    "skipLibCheck": false,
+    "allowJs": false,
+    "noImplicitAny": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "declaration": false,
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "esnext",
+      "es2015"
+    ],
+    "types": [
+      "react",
+      "react-dom"
+    ],
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "exclude": [
+    ".idea",
+    "dist",
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "src"
+  ]
+}
