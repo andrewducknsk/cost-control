@@ -10,7 +10,7 @@ import require from '../validators/require';
 
 const AddingNote: React.FunctionComponent = (): JSX.Element => {
   const { addingNote } = useContext(CoreContext);
-  const formModel = useRef();
+  const formModel = useRef<HTMLDivElement>(null);
   const postNote = useCustomDispatch();
 
   const defaultData = {
@@ -38,7 +38,6 @@ const AddingNote: React.FunctionComponent = (): JSX.Element => {
 
   const onSend = (e: React.SyntheticEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    // @ts-ignore
     const { getValues, isValid } = formModel.current;
 
     if (isValid()) {
