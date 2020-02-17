@@ -2,9 +2,9 @@ import { handleActions } from 'redux-actions';
 import { fromJS, List } from 'immutable';
 import { actionTypes } from '../actions';
 
-interface IInitialState {
+export interface IHistoryState {
   data: List<object>;
-  filterType: string;
+  // filterType: string;
   isLoading: boolean;
   isFetched: boolean;
 }
@@ -14,11 +14,12 @@ interface IPayload {
   readonly data?: object;
 }
 
-export const history = handleActions<IInitialState, IPayload>(
+// TODO: подробнее типизмровать
+export const history = handleActions<IHistoryState, IPayload>(
   {
     [actionTypes.FILTER_HISTORY]: (state, { payload }) => ({
       ...state,
-      filterType: payload,
+      filterType: payload.data,
     }),
     [actionTypes.SUCCESS_FETCH_HISTORY]: (state, { payload }) => ({
       ...state,
@@ -38,7 +39,7 @@ export const history = handleActions<IInitialState, IPayload>(
   },
   {
     data: List(),
-    filterType: '',
+    // filterType: '',
     isLoading: false,
     isFetched: false,
   }

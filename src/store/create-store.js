@@ -5,7 +5,7 @@ import rootSaga from '../store/sagas';
 
 const createSagaMiddleware = createSaga();
 
-export default (initialState: any) => {
+export default initialState => {
   const store = createStore(
     rootReducer,
     initialState,

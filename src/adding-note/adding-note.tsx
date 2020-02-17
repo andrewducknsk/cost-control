@@ -1,4 +1,4 @@
-import React, { memo, useContext, useRef } from 'react';
+import React, { memo, ReactElement, useContext, useRef } from 'react';
 import { DateInput, NumberInput, Select, TextInput } from '../controls';
 import Form from '../form';
 import CoreContext from '../core/core-context';
@@ -7,13 +7,27 @@ import { actionTypes } from '../store/actions';
 import { useCustomDispatch } from '../hooks';
 import { dateFromFuture, maxLength, pattern } from '../validators';
 import require from '../validators/require';
+import { Locale } from '../core/locale-interface';
 
-const AddingNote: React.FunctionComponent = (): JSX.Element => {
-  const { addingNote } = useContext(CoreContext);
-  const formModel = useRef<HTMLDivElement>(null);
+interface IDefaultData {
+  readonly [key: string]: IDefaultDataValues;
+}
+
+interface IDefaultDataValues {
+  readonly value: string | number;
+  readonly validators: Array<IDefaultDataValidators>;
+}
+
+interface IDefaultDataValidators {
+  (value: string): void;
+}
+
+const AddingNote: React.FC = (): React.ReactElement => {
+  const { addingNote }: { addingNote: Locale.AddingNoteLocale } = useContext(CoreContext);
+  const formModel = useRef<React.ReactElement>(null);
   const postNote = useCustomDispatch();
 
-  const defaultData = {
+  const defaultData: IDefaultData = {
     expenseName: {
       value: 'aas',
       validators: [

@@ -12,7 +12,7 @@ interface IParams {
 
 const Button = ({ label, action, styleType }: IParams): JSX.Element => {
   const filterHistory = useCustomDispatch();
-  const onClickFiltered = () => filterHistory(actionTypes.FILTER_HISTORY, action);
+  const onClickFiltered = () => filterHistory(actionTypes.FILTER_HISTORY, { data: action });
 
   return (
     <Styled.Button onClick={onClickFiltered} styleType={styleType}>

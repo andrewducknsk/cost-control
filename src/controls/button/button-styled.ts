@@ -7,7 +7,7 @@ interface ICustomButtonStyle {
   readonly border: string;
   readonly hover: IHoverCustomStyle;
   readonly active: IActiveCustomStyle;
-  onClick?: MouseEvent;
+  // onClick?: MouseEvent;
 }
 
 interface IHoverCustomStyle {

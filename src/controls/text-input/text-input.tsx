@@ -10,7 +10,7 @@ interface ITextInputProps {
   readonly placeholder: string;
 }
 
-const TextInput: React.FunctionComponent<ITextInputProps> = ({
+const TextInput: React.FC<ITextInputProps> = ({
   name,
   onChangeControl,
   value = '',
