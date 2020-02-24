@@ -1,10 +1,7 @@
-interface IReturn {
-  readonly status: string;
-  readonly message: string;
-}
+import { Validators } from './validators-interface';
 
 export default (message: string = 'Укажите корректную дату') => {
-  return (value: string): IReturn => {
+  return (value: string): Validators.IReturnData => {
     const currentDate = new Date().getTime();
     const receivedDate = new Date(value).getTime();
 

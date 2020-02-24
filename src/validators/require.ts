@@ -1,10 +1,7 @@
-interface IReturn {
-  readonly status: string;
-  readonly message: string;
-}
+import { Validators } from './validators-interface';
 
 export default (message: string = 'Обязательное поле') => {
-  return (value: string): IReturn => {
+  return (value: string): Validators.IReturnData => {
     if (value.length === 0) {
       return { status: 'error', message };
     }

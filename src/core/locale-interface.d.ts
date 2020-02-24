@@ -7,7 +7,7 @@ export namespace Locale {
     readonly links: Array<NavigationLinks>;
   }
 
-  export interface Greeting {
+  interface Greeting {
     readonly title: string;
     readonly description: string;
     readonly buttonLabel: string;

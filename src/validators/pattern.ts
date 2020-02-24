@@ -1,15 +1,12 @@
+import { Validators } from './validators-interface';
+
 interface IArguments {
   readonly pattern: RegExp;
   readonly message?: string;
 }
 
-interface IReturn {
-  readonly status: string;
-  readonly message: string;
-}
-
 export default ({ pattern, message = 'Используются запрещенные символы' }: IArguments) => {
-  return (value: string): IReturn => {
+  return (value: string): Validators.IReturnData => {
     const valueContainsPattern = value.search(pattern);
 
     if (valueContainsPattern !== -1) {

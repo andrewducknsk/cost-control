@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { Validators } from '../validators/validators-interface';
 
 interface IForm {
   readonly children: React.ReactElement;
@@ -12,47 +13,42 @@ export interface IDefaultData {
 
 interface IDefaultDataItem {
   readonly value: string | number;
-  readonly validators: Array<(value: string) => void>;
+  readonly validators: Array<(value: string) => Validators.IReturnData>;
 }
 
 interface IDefaultState {
-  readonly value: string;
+  [key: string]: IDefaultStateItem;
+}
+
+interface IDefaultStateItem {
+  readonly value: string | number;
   readonly status: string;
   readonly message: string;
-  readonly validators: [];
+  readonly validators: Array<(value: string) => Validators.IReturnData>;
 }
 
 const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.ReactElement => {
-  // TODO: перписать на reduce
-  // @ts-ignore
+  // TODO: useMemo
   const getInitialState: () => IDefaultState = () => {
-    const defaultState: IDefaultState = {
-      value: '',
-      status: '',
-      message: '',
-      validators: [],
-    };
     const childNames: Array<string> = React.Children.map(
       children.props.children,
-      child => child.props.name
-    );
-    const newState = {};
-
-    childNames.forEach(
-      // @ts-ignore
-      (name: string): void => (newState[name] = { ...defaultState, ...defaultData[name] })
+      (child: React.ReactElement) => child.props.name
     );
 
-    return newState;
+    const defaultState: IDefaultStateItem = { value: '', status: '', message: '', validators: [] };
+
+    return childNames.reduce((accumulator, item: string) => {
+      accumulator[item] = { ...defaultState, ...defaultData[item] };
+
+      return accumulator;
+    }, {} as IDefaultState);
   };
 
   const [state, setState] = useState<IDefaultState>(getInitialState);
 
-  // TODO: вынести в хук
-  const validation: (name: string, value: string) => void = (name, value) =>
-    // @ts-ignore
+  // TODO: вынести в хук(может быть)
+  const validation: (name: string, value: string) => Validators.IReturnData = (name, value) =>
     state[name].validators.reduce(
-      // @ts-ignore
       (accumulator, item) => {
         const resultValidator = item(value);
 
@@ -68,13 +64,11 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
     );
 
   const isValid: () => boolean = () =>
-    // @ts-ignore
     Object.keys(state).some(controlName => state[controlName].status === 'error');
 
   const onChange = (value: string, name: string) => {
     const validationData = validation(name, value);
 
-    // @ts-ignore
     setState({ ...state, [name]: { ...state[name], ...validationData, value } });
   };
 
@@ -96,7 +90,6 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
   const childrenElements: Array<React.ReactElement> = React.Children.map(
     parentElement.props.children,
     child => {
-      // @ts-ignore
       const newProps = { ...state[child.props.name], onChange };
 
       return <child.type {...child.props} {...newProps} />;
