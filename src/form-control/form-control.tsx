@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
 import Styled from './form-control-styled';
 
-// TODO: описать деструкторизацию
-interface IFormControlProps {
+// TODO: описать деструкторизацию, нужно посмотреть, что лежит в otherProps
+export interface IFormControlProps {
   readonly label: string;
-  readonly control: JSX.Element;
+  readonly control: any;
   readonly onChange: (value: string, name: string) => void;
   readonly message: string;
+  readonly [otherProps: string]: any;
 }
 
 const FormControl: React.FC<IFormControlProps> = ({
@@ -16,7 +17,8 @@ const FormControl: React.FC<IFormControlProps> = ({
   message,
   ...otherProps
 }): JSX.Element => {
-  const onChangeControl = (value: string, name: string): void => onChange(value, name);
+  const onChangeControl: (value: string, name: string) => void = (value, name) =>
+    onChange(value, name);
 
   const childProps: object = { ...otherProps, onChangeControl };
 

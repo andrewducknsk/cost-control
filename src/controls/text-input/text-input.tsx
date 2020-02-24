@@ -5,9 +5,9 @@ import Styled from './text-input-styled';
 interface ITextInputProps {
   readonly name: string;
   readonly onChangeControl: (value: string, name: string) => void;
-  readonly value: string;
   readonly status: string;
-  readonly placeholder: string;
+  readonly value?: string;
+  readonly placeholder?: string;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
@@ -19,8 +19,8 @@ const TextInput: React.FC<ITextInputProps> = ({
 }): JSX.Element => {
   const isError: boolean = status === 'error';
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value, name } = e.target;
+  const onChange: (e: React.ChangeEvent<HTMLInputElement>) => void = e => {
+    const { value, name }: { value: string; name: string } = e.target;
 
     onChangeControl(value, name);
   };

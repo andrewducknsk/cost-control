@@ -1,19 +1,19 @@
 export namespace Locale {
-  interface HeaderLocale {
+  interface Header {
     readonly title: string;
   }
 
-  interface NavigationLocale {
+  interface Navigation {
     readonly links: Array<NavigationLinks>;
   }
 
-  export interface GreetingLocale {
+  export interface Greeting {
     readonly title: string;
     readonly description: string;
     readonly buttonLabel: string;
   }
 
-  interface AddingNoteLocale {
+  interface AddingNote {
     readonly title: string;
     readonly expenseNameLabel: string;
     readonly expenseNamePlaceholder: string;

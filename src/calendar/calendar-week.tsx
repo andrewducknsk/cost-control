@@ -7,8 +7,8 @@ interface ICalendarWeekArguments {
   readonly days: Array<number>;
 }
 
-const CalendarWeek = ({ onClickDay, days }: ICalendarWeekArguments): JSX.Element => {
-  const renderDays = (): Array<JSX.Element> =>
+const CalendarWeek: React.FC<ICalendarWeekArguments> = ({ onClickDay, days }): JSX.Element => {
+  const renderDays: () => Array<JSX.Element> = () =>
     days.map(day => <CalendarDay day={day} onClickDay={onClickDay} key={day} />);
 
   return <Styled.Week>{renderDays()}</Styled.Week>;

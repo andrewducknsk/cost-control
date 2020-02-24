@@ -2,13 +2,13 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Styled from './calendar-styled';
 import CalendarWeek from './calendar-week';
 
-interface IMonthName {
-  readonly [key: string]: string;
+interface ICalendarProps {
+  readonly onChange: (data: string) => void;
+  readonly onClose: () => void;
 }
 
-interface ICalendarArguments {
-  readonly onChange: (date: string) => void;
-  readonly onClose: () => void;
+interface IMonthName {
+  readonly [key: string]: string;
 }
 
 interface IWeeks {
@@ -30,21 +30,21 @@ const monthName: IMonthName = {
   12: 'Декабрь',
 };
 
-const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
+const Calendar: React.FC<ICalendarProps> = ({ onChange, onClose }): JSX.Element => {
   // TODO: анимировать так же как и попап (сдлеать хук)
   // TODO: закрытие по аут клику в хук
-  const date = new Date();
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(date.getMonth() + 1);
-  const calendarElement = useRef(undefined);
+  const date: Date = new Date();
+  const [year, setYear] = useState<number>(date.getFullYear());
+  const [month, setMonth] = useState<number>(date.getMonth() + 1);
+  const calendarElement = useRef<HTMLDivElement>(null!);
 
-  const getDaysOfMonth = (): Array<number> => {
+  const getDaysOfMonth: () => Array<number> = () => {
     const daysInMonth: number = new Date(year, month, 0).getDate();
 
     return [...new Array(daysInMonth)].map((day, index: number) => index + 1);
   };
 
-  const transformMonthToWeeks = (): IWeeks =>
+  const transformMonthToWeeks: () => IWeeks = () =>
     getDaysOfMonth().reduce((accumulator: IWeeks, currentDay: number): IWeeks => {
       const weekIndex: number = Math.ceil(currentDay / 7);
 
@@ -57,9 +57,9 @@ const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
       return accumulator;
     }, {});
 
-  const onClickCalendar = (e: React.MouseEvent): void => e.preventDefault();
+  const onClickCalendar: (e: React.SyntheticEvent) => void = e => e.preventDefault();
 
-  const onPrevMonth = useCallback(() => {
+  const onPrevMonth: () => void = useCallback(() => {
     if (month === 1) {
       setYear(year - 1);
       setMonth(12);
@@ -68,7 +68,7 @@ const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
     setMonth(month - 1);
   }, [year, month]);
 
-  const onNextMonth = useCallback(() => {
+  const onNextMonth: () => void = useCallback(() => {
     if (month === 12) {
       setYear(year + 1);
       setMonth(1);
@@ -77,7 +77,7 @@ const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
     setMonth(month + 1);
   }, [year, month]);
 
-  const scrollCalendar = useCallback(
+  const scrollCalendar: (e: React.WheelEvent) => void = useCallback(
     e => {
       if (e.deltaY < 0) {
         onNextMonth();
@@ -89,8 +89,8 @@ const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
   );
 
   // TODO: check types and change
-  const transformDate = (day: number): string => {
-    const currentDate = { day, month, year };
+  const transformDate: (day: number) => string = day => {
+    const currentDate: { day: number; month: number; year: number } = { day, month, year };
 
     if (currentDate.day < 10) {
       // @ts-ignore
@@ -105,14 +105,16 @@ const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
     return `${currentDate.year}-${currentDate.month}-${currentDate.day}`;
   };
 
-  const onChoiceDate = (day: number): void => {
-    const date = transformDate(day);
+  const onChoiceDate: (day: number) => void = day => {
+    const date: string = transformDate(day);
     onChange(date);
     onClose();
   };
 
   const closeCalendar = useCallback(
+    // TODO: указать тип event-a
     e => {
+      // @ts-ignore
       const isClickOutCalendar = e.path.every((item: string) => item !== calendarElement.current);
       if (isClickOutCalendar) {
         onClose();
@@ -123,26 +125,30 @@ const Calendar = ({ onChange, onClose }: ICalendarArguments): JSX.Element => {
 
   useEffect(() => {
     // TODO: ref type in initial
-    const calendarElem: HTMLElement | undefined = calendarElement.current;
+    const calendarElem: HTMLDivElement = calendarElement.current;
 
     // @ts-ignore
     calendarElem.addEventListener('wheel', scrollCalendar);
+    // @ts-ignore
     document.addEventListener('click', closeCalendar);
 
     return () => {
       // @ts-ignore
       calendarElem.removeEventListener('wheel', scrollCalendar);
+      // @ts-ignore
       document.removeEventListener('click', closeCalendar);
     };
   }, [scrollCalendar, closeCalendar]);
 
-  const renderWeeks = () => {
+  const renderWeeks: () => Array<JSX.Element> = () => {
     const weeks: IWeeks = transformMonthToWeeks();
     const weeksKeys: Array<string> = Object.keys(weeks);
 
-    return weeksKeys.map((weekIndex: string) => (
-      <CalendarWeek days={weeks[weekIndex]} onClickDay={onChoiceDate} key={weekIndex} />
-    ));
+    return weeksKeys.map(
+      (weekIndex: string): JSX.Element => (
+        <CalendarWeek days={weeks[weekIndex]} onClickDay={onChoiceDate} key={weekIndex} />
+      )
+    );
   };
 
   return (

@@ -3,24 +3,24 @@ import Styled from './select-styled';
 
 interface ISelectArguments {
   readonly name: string;
-  readonly options: Array<string>;
-  readonly value: string;
   readonly onChangeControl: (value: string, name: string) => void;
+  readonly options?: Array<string>;
+  readonly value?: string;
 }
 
-const Select: React.FunctionComponent<ISelectArguments> = ({
+const Select: React.FC<ISelectArguments> = ({
   name,
   options = [],
   value = '',
   onChangeControl,
 }): JSX.Element => {
-  const onChangeSelect = (e: React.ChangeEvent<HTMLOptionElement>): void => {
-    const { value } = e.target;
+  const onChangeSelect: (e: React.ChangeEvent<HTMLOptionElement>) => void = e => {
+    const { value }: { value: string } = e.target;
 
     onChangeControl(value, name);
   };
 
-  const renderOptions = (): Array<JSX.Element> =>
+  const renderOptions: () => Array<JSX.Element> = () =>
     options.map(option => (
       <option value={option} key={option}>
         {option}

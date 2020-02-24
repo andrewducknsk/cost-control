@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 
 // TODO: types
-const useCustomDispatch = () => {
+const useCustomDispatch: () => (type: string, payload?: object) => void = () => {
   const dispatch = useDispatch();
 
-  return (type: string, payload = {}) => dispatch({ type, payload });
+  return (type, payload = {}) => dispatch({ type, payload });
 };
 
 export default useCustomDispatch;

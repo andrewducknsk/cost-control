@@ -8,23 +8,11 @@ import { useCustomDispatch } from '../hooks';
 import { dateFromFuture, maxLength, pattern } from '../validators';
 import require from '../validators/require';
 import { Locale } from '../core/locale-interface';
+import { IDefaultData } from '../form/form';
 
-interface IDefaultData {
-  readonly [key: string]: IDefaultDataValues;
-}
-
-interface IDefaultDataValues {
-  readonly value: string | number;
-  readonly validators: Array<IDefaultDataValidators>;
-}
-
-interface IDefaultDataValidators {
-  (value: string): void;
-}
-
-const AddingNote: React.FC = (): React.ReactElement => {
-  const { addingNote }: { addingNote: Locale.AddingNoteLocale } = useContext(CoreContext);
-  const formModel = useRef<React.ReactElement>(null);
+const AddingNote: React.FC = (): JSX.Element => {
+  const { addingNote }: { addingNote: Locale.AddingNote } = useContext(CoreContext);
+  const formModel = useRef<React.ReactElement | null>(null);
   const postNote = useCustomDispatch();
 
   const defaultData: IDefaultData = {
@@ -50,15 +38,16 @@ const AddingNote: React.FC = (): React.ReactElement => {
     },
   };
 
-  const onSend = (e: React.SyntheticEvent<HTMLFormElement>): void => {
+  const onSend: (e: React.FormEvent) => void = e => {
     e.preventDefault();
+    // @ts-ignore
     const { getValues, isValid } = formModel.current;
 
     if (isValid()) {
       return;
     }
 
-    const formValues: { [key: string]: string } = getValues();
+    const formValues: { [key: string]: { value: string } } = getValues();
 
     postNote(actionTypes.POST_NOTE, formValues);
   };

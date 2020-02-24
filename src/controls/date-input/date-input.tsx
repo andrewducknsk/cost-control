@@ -1,39 +1,40 @@
-import React, { memo, SyntheticEvent, useState } from 'react';
+import React, { memo, useState } from 'react';
 import Styled from './date-input-styled';
 import calendarIcon from '../../icon/calendar-icon.svg';
 import Calendar from '../../calendar';
 
-interface IDateInputArguments {
+interface IDateInputProps {
   readonly name: string;
   readonly onChangeControl: (value: string, name: string) => void;
   readonly value: string;
   readonly status: string;
-  readonly iconUrl: string;
-  readonly showIcon: boolean;
+  readonly showIcon?: boolean;
+  readonly iconUrl?: string;
+  readonly placeholder?: string;
 }
 
-const DateInput = ({
+const DateInput: React.FC<IDateInputProps> = ({
   name,
   onChangeControl,
   value,
   status,
   iconUrl = calendarIcon,
   showIcon = true,
-}: IDateInputArguments): JSX.Element => {
-  const [showCalendar, setShowCalendar] = useState(false);
+}): JSX.Element => {
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const isError: boolean = status === 'error';
 
-  const getDateCalendar = (date: string): void => {
+  const getDateCalendar: (date: string) => void = date => {
     onChangeControl(date, name);
   };
 
-  const getDateInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target;
+  const getDateInput: (e: React.ChangeEvent<HTMLInputElement>) => void = e => {
+    const { value }: { value: string } = e.target;
 
     onChangeControl(value, name);
   };
 
-  const toggleShowCalendar = (): void => setShowCalendar(!showCalendar);
+  const toggleShowCalendar: () => void = () => setShowCalendar(!showCalendar);
 
   return (
     <>

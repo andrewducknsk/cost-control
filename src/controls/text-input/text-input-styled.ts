@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { BaseControlStyled, ErrorControlStyled } from '../base-control-styled';
 
-const InputStyled = styled(BaseControlStyled('input'))`
+interface ITextInput {
+  readonly status: boolean;
+}
+
+const InputStyled = styled(BaseControlStyled('input'))<ITextInput>`
   ${props => (props.status ? ErrorControlStyled : '')}
 `;
 

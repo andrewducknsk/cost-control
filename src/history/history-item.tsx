@@ -8,12 +8,7 @@ interface IHistoryItemProps {
   readonly amount: string;
 }
 
-const HistoryItem: React.FunctionComponent<IHistoryItemProps> = ({
-  name,
-  type,
-  date,
-  amount,
-}): JSX.Element => {
+const HistoryItem: React.FC<IHistoryItemProps> = ({ name, type, date, amount }): JSX.Element => {
   return (
     <Styled.HistoryItem>
       <Styled.Header>

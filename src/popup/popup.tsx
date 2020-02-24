@@ -4,15 +4,15 @@ import Styled from './popup-styled';
 
 interface IPopupProps {
   readonly children: JSX.Element;
-  readonly onClose: any;
-  readonly scrollPosition: any;
+  readonly onClose: () => void;
+  readonly scrollPosition: number;
 }
 
-const Popup: React.FunctionComponent<IPopupProps> = ({ children, onClose, scrollPosition }) => {
-  const [isShowAnimation, setIsShowAnimation] = useState(true);
-  const popupElement = useRef(null);
+const Popup: React.FC<IPopupProps> = ({ children, onClose, scrollPosition }): React.ReactPortal => {
+  const [isShowAnimation, setIsShowAnimation] = useState<boolean>(true);
+  const popupElement = useRef<HTMLDivElement>(null);
 
-  const onClosePopup = useCallback(() => {
+  const onClosePopup: () => void = useCallback(() => {
     setIsShowAnimation(false);
 
     setTimeout((): void => {
@@ -21,7 +21,7 @@ const Popup: React.FunctionComponent<IPopupProps> = ({ children, onClose, scroll
     }, 150);
   }, [onClose, scrollPosition]);
 
-  const closeKeyDownEsc = useCallback(
+  const closeKeyDownEsc: (e: React.KeyboardEvent) => void = useCallback(
     e => {
       const ESCAPE = 27;
 
@@ -32,8 +32,10 @@ const Popup: React.FunctionComponent<IPopupProps> = ({ children, onClose, scroll
     [onClosePopup]
   );
 
-  const closeOutClick = useCallback(
+  // TODO: узнать тип event-a
+  const closeOutClick: (e: React.SyntheticEvent) => void = useCallback(
     e => {
+      // @ts-ignore
       const isClickOutElement = e.path.every((item: string) => item !== popupElement.current);
       if (isClickOutElement) {
         onClosePopup();
@@ -43,11 +45,15 @@ const Popup: React.FunctionComponent<IPopupProps> = ({ children, onClose, scroll
   );
 
   useEffect(() => {
+    // @ts-ignore
     document.addEventListener('keydown', closeKeyDownEsc);
+    // @ts-ignore
     document.addEventListener('click', closeOutClick);
 
     return () => {
+      // @ts-ignore
       document.removeEventListener('keydown', closeKeyDownEsc);
+      // @ts-ignore
       document.removeEventListener('click', closeOutClick);
     };
   }, [closeKeyDownEsc, closeOutClick]);

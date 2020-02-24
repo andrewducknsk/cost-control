@@ -5,6 +5,7 @@ import CoreContext from './core-context';
 import locale from './locale';
 import Header from '../header';
 import Main from '../main';
+// @ts-ignore
 import createStore from '../store/create-store';
 
 const store = createStore({});

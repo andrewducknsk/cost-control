@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 import Styled from './calendar-styled';
 
-interface ICalendarDayArguments {
+interface ICalendarDayProps {
   readonly onClickDay: (day: number) => void;
   readonly day: number;
 }
 
-const CalendarDay = ({ onClickDay, day }: ICalendarDayArguments): JSX.Element => {
-  const onChoiceDay = () => onClickDay(day);
+const CalendarDay: React.FC<ICalendarDayProps> = ({ onClickDay, day }): JSX.Element => {
+  const onChoiceDay: () => void = () => onClickDay(day);
 
   return <Styled.Day onClick={onChoiceDay}>{day}</Styled.Day>;
 };
