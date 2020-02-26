@@ -1,4 +1,4 @@
-import React, { memo, ReactElement, useContext, useRef } from 'react';
+import React, { memo, useContext, useRef } from 'react';
 import { DateInput, NumberInput, Select, TextInput } from '../controls';
 import Form from '../form';
 import CoreContext from '../core/core-context';
@@ -8,11 +8,16 @@ import { useCustomDispatch } from '../hooks';
 import { dateFromFuture, maxLength, pattern } from '../validators';
 import require from '../validators/require';
 import { Locale } from '../core/locale-interface';
-import { IDefaultData } from '../form/form';
+import { IDefaultData, IGetValues } from '../form/form';
+
+export interface IRef {
+  getValues: () => IGetValues;
+  isValid: () => boolean;
+}
 
 const AddingNote: React.FC = (): JSX.Element => {
   const { addingNote }: { addingNote: Locale.AddingNote } = useContext(CoreContext);
-  const formModel = useRef<React.ReactElement | null>(null);
+  const formModel = useRef<IRef>({} as IRef);
   const postNote = useCustomDispatch();
 
   const defaultData: IDefaultData = {
@@ -38,16 +43,15 @@ const AddingNote: React.FC = (): JSX.Element => {
     },
   };
 
-  const onSend: (e: React.FormEvent) => void = e => {
+  const onSend: (e: React.FormEvent<HTMLFormElement>) => void = e => {
     e.preventDefault();
-    // @ts-ignore
     const { getValues, isValid } = formModel.current;
 
     if (isValid()) {
       return;
     }
 
-    const formValues: { [key: string]: { value: string } } = getValues();
+    const formValues: IGetValues = getValues();
 
     postNote(actionTypes.POST_NOTE, formValues);
   };

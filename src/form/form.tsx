@@ -1,14 +1,11 @@
 import React, { memo, useState } from 'react';
 import { Validators } from '../validators/validators-interface';
+import { IRef } from '../adding-note/adding-note';
 
 interface IForm {
   readonly children: React.ReactElement;
   readonly defaultData: IDefaultData;
-  readonly formRef: object;
-}
-
-export interface IDefaultData {
-  readonly [key: string]: IDefaultDataItem;
+  readonly formRef: React.Ref<IRef>;
 }
 
 interface IDefaultDataItem {
@@ -27,6 +24,14 @@ interface IDefaultStateItem {
   readonly validators: Array<(value: string) => Validators.IReturnData>;
 }
 
+export interface IDefaultData {
+  readonly [key: string]: IDefaultDataItem;
+}
+
+export interface IGetValues {
+  [key: string]: string | number;
+}
+
 const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.ReactElement => {
   // TODO: useMemo
   const getInitialState: () => IDefaultState = () => {
@@ -37,10 +42,10 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
 
     const defaultState: IDefaultStateItem = { value: '', status: '', message: '', validators: [] };
 
-    return childNames.reduce((accumulator, item: string) => {
-      accumulator[item] = { ...defaultState, ...defaultData[item] };
+    return childNames.reduce((acc, item: string) => {
+      acc[item] = { ...defaultState, ...defaultData[item] };
 
-      return accumulator;
+      return acc;
     }, {} as IDefaultState);
   };
 
@@ -49,38 +54,36 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
   // TODO: вынести в хук(может быть)
   const validation: (name: string, value: string) => Validators.IReturnData = (name, value) =>
     state[name].validators.reduce(
-      (accumulator, item) => {
+      (acc, item: Validators.IFunction) => {
         const resultValidator = item(value);
 
         if (resultValidator.status === '') {
-          return accumulator;
+          return acc;
         }
 
-        accumulator = { ...item(value) };
+        acc = { ...item(value) };
 
-        return accumulator;
+        return acc;
       },
-      { status: '', message: '' }
+      { status: '', message: '' } as Validators.IReturnData
     );
 
   const isValid: () => boolean = () =>
     Object.keys(state).some(controlName => state[controlName].status === 'error');
 
-  const onChange = (value: string, name: string) => {
+  const onChange: (value: string, name: string) => void = (value, name) => {
     const validationData = validation(name, value);
 
     setState({ ...state, [name]: { ...state[name], ...validationData, value } });
   };
 
-  // TODO: переписать на reduce
-  const getValues = () => {
-    const values = {};
+  // TODO: useCallback
+  const getValues: () => IGetValues = () =>
+    Object.keys(state).reduce((acc, name: string) => {
+      acc[name] = state[name].value;
 
-    // @ts-ignore
-    Object.keys(state).forEach(name => (values[name] = state[name].value));
-
-    return values;
-  };
+      return acc;
+    }, {} as IGetValues);
 
   // @ts-ignore
   formRef.current = { getValues, isValid };

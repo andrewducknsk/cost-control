@@ -45,17 +45,17 @@ const Calendar: React.FC<ICalendarProps> = ({ onChange, onClose }): JSX.Element 
   };
 
   const transformMonthToWeeks: () => IWeeks = () =>
-    getDaysOfMonth().reduce((accumulator: IWeeks, currentDay: number): IWeeks => {
+    getDaysOfMonth().reduce((acc, currentDay: number): IWeeks => {
       const weekIndex: number = Math.ceil(currentDay / 7);
 
-      if (!accumulator[weekIndex]) {
-        accumulator[weekIndex] = [];
+      if (!acc[weekIndex]) {
+        acc[weekIndex] = [];
       }
 
-      accumulator[weekIndex] = [...accumulator[weekIndex], currentDay];
+      acc[weekIndex] = [...acc[weekIndex], currentDay];
 
-      return accumulator;
-    }, {});
+      return acc;
+    }, {} as IWeeks);
 
   const onClickCalendar: (e: React.SyntheticEvent) => void = e => e.preventDefault();
 
