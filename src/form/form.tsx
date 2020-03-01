@@ -33,7 +33,6 @@ export interface IGetValues {
 }
 
 const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.ReactElement => {
-  // TODO: useMemo
   const getInitialState: () => IDefaultState = () => {
     const childNames: Array<string> = React.Children.map(
       children.props.children,
@@ -42,7 +41,7 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
 
     const defaultState: IDefaultStateItem = { value: '', status: '', message: '', validators: [] };
 
-    return childNames.reduce((acc, item: string) => {
+    return childNames.reduce((acc, item: string): IDefaultState => {
       acc[item] = { ...defaultState, ...defaultData[item] };
 
       return acc;
@@ -52,7 +51,7 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
   const [state, setState] = useState<IDefaultState>(getInitialState);
 
   // TODO: вынести в хук(может быть)
-  const validation: (name: string, value: string) => Validators.IReturnData = (name, value) =>
+  const validation: (value: string, name: string) => Validators.IReturnData = (value, name) =>
     state[name].validators.reduce(
       (acc, item: Validators.IFunction) => {
         const resultValidator = item(value);
@@ -72,12 +71,11 @@ const Form: React.FC<IForm> = ({ children, defaultData = {}, formRef }): React.R
     Object.keys(state).some(controlName => state[controlName].status === 'error');
 
   const onChange: (value: string, name: string) => void = (value, name) => {
-    const validationData = validation(name, value);
+    const validationData = validation(value, name);
 
     setState({ ...state, [name]: { ...state[name], ...validationData, value } });
   };
 
-  // TODO: useCallback
   const getValues: () => IGetValues = () =>
     Object.keys(state).reduce((acc, name: string) => {
       acc[name] = state[name].value;

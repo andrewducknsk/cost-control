@@ -50,14 +50,14 @@ const History: React.FC = (): JSX.Element => {
     <Styled.History>
       <Styled.Header>
         <Styled.Title>{history.title}</Styled.Title>
-        {showPopup && (
-          <Popup onClose={togglePopup} scrollPosition={scrollPosition}>
-            <AddingNote />
-          </Popup>
-        )}
       </Styled.Header>
       {renderItems()}
       <Styled.Button onClick={togglePopup}>Push</Styled.Button>
+      {showPopup && (
+        <Popup onClose={togglePopup} scrollPosition={scrollPosition}>
+          <AddingNote />
+        </Popup>
+      )}
     </Styled.History>
   );
 };

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import Styled from './history-item-styled';
 
 interface IHistoryItemProps {
@@ -9,10 +9,14 @@ interface IHistoryItemProps {
 }
 
 const HistoryItem: React.FC<IHistoryItemProps> = ({ name, type, date, amount }): JSX.Element => {
+  const [isChangeName, setIsChangeName] = useState<boolean>(false);
+
+  const changeName: () => void = () => setIsChangeName(!isChangeName);
+
   return (
     <Styled.HistoryItem>
       <Styled.Header>
-        <Styled.TextName>Name - {name}</Styled.TextName>
+        {!isChangeName && <Styled.TextName onClick={changeName}>Name - {name}</Styled.TextName>}
         <Styled.TextName>amount - {amount}</Styled.TextName>
       </Styled.Header>
       <Styled.Body>

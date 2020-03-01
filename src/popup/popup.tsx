@@ -33,7 +33,7 @@ const Popup: React.FC<IPopupProps> = ({ children, onClose, scrollPosition }): Re
   );
 
   // TODO: узнать тип event-a
-  const closeOutClick: (e: React.SyntheticEvent) => void = useCallback(
+  const closeOutClick: (e: React.SyntheticEvent<HTMLDivElement>) => void = useCallback(
     e => {
       // @ts-ignore
       const isClickOutElement = e.path.every((item: string) => item !== popupElement.current);

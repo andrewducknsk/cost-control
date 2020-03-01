@@ -1,10 +1,10 @@
+import React from 'react';
 import styled from 'styled-components';
 import { openAnimation, closeAnimation } from '../base-stylesheets/animation';
 
-// TODO: any types
 interface ICalendarProps {
-  readonly ref?: any;
-  readonly onClick?: any;
+  readonly ref?: React.MutableRefObject<HTMLDivElement>;
+  readonly onClick?: (e: React.SyntheticEvent) => void;
   readonly type?: boolean;
 }
 
@@ -18,7 +18,7 @@ const CalendarStyled = styled.div<ICalendarProps>`
 	//animation-fill-mode: forwards;
 	//animation-duration: 0.15s;
 	position: absolute;
-	top: 48px;
+	top: 50px;
 	right: 0;
 	z-index: 5;
 	max-width: 280px;

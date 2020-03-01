@@ -3,17 +3,17 @@ import Styled from './number-input-styled';
 
 interface INumberInputProps {
   readonly name: string;
-  readonly onChangeControl: (value: string, name: string) => void;
   readonly status: string;
+  readonly onChangeControl: (value: string, name: string) => void;
   readonly value?: string;
   readonly placeholder?: string;
 }
 
 const NumberInput: React.FC<INumberInputProps> = ({
   name,
+  status,
   onChangeControl,
   value = '',
-  status,
   placeholder = '',
 }): JSX.Element => {
   const isError: boolean = status === 'error';

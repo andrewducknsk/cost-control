@@ -4,15 +4,15 @@ import Styled from './select-styled';
 interface ISelectArguments {
   readonly name: string;
   readonly onChangeControl: (value: string, name: string) => void;
-  readonly options?: Array<string>;
   readonly value?: string;
+  readonly options?: Array<string>;
 }
 
 const Select: React.FC<ISelectArguments> = ({
   name,
-  options = [],
-  value = '',
   onChangeControl,
+  value = '',
+  options = [],
 }): JSX.Element => {
   const onChangeSelect: (e: React.ChangeEvent<HTMLOptionElement>) => void = e => {
     const { value }: { value: string } = e.target;

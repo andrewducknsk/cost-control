@@ -3,7 +3,7 @@ import Styled from './calendar-styled';
 import CalendarWeek from './calendar-week';
 
 interface ICalendarProps {
-  readonly onChange: (data: string) => void;
+  readonly onChange: (data: ICalendarReturnType) => void;
   readonly onClose: () => void;
 }
 
@@ -13,6 +13,13 @@ interface IMonthName {
 
 interface IWeeks {
   [key: string]: Array<number>;
+}
+
+export interface ICalendarReturnType {
+  [key: string]: number;
+  // readonly day: number;
+  // readonly month: number;
+  // readonly year: number;
 }
 
 const monthName: IMonthName = {
@@ -77,7 +84,7 @@ const Calendar: React.FC<ICalendarProps> = ({ onChange, onClose }): JSX.Element 
     setMonth(month + 1);
   }, [year, month]);
 
-  const scrollCalendar: (e: React.WheelEvent) => void = useCallback(
+  const scrollCalendar: (e: React.WheelEvent<HTMLDivElement>) => void = useCallback(
     e => {
       if (e.deltaY < 0) {
         onNextMonth();
@@ -88,25 +95,8 @@ const Calendar: React.FC<ICalendarProps> = ({ onChange, onClose }): JSX.Element 
     [onNextMonth, onPrevMonth]
   );
 
-  // TODO: check types and change
-  const transformDate: (day: number) => string = day => {
-    const currentDate: { day: number; month: number; year: number } = { day, month, year };
-
-    if (currentDate.day < 10) {
-      // @ts-ignore
-      currentDate.day = `0${currentDate.day}`;
-    }
-
-    if (currentDate.month < 10) {
-      // @ts-ignore
-      currentDate.month = `0${currentDate.month}`;
-    }
-
-    return `${currentDate.year}-${currentDate.month}-${currentDate.day}`;
-  };
-
   const onChoiceDate: (day: number) => void = day => {
-    const date: string = transformDate(day);
+    const date: ICalendarReturnType = { day, month, year };
     onChange(date);
     onClose();
   };
@@ -129,13 +119,11 @@ const Calendar: React.FC<ICalendarProps> = ({ onChange, onClose }): JSX.Element 
 
     // @ts-ignore
     calendarElem.addEventListener('wheel', scrollCalendar);
-    // @ts-ignore
     document.addEventListener('click', closeCalendar);
 
     return () => {
       // @ts-ignore
       calendarElem.removeEventListener('wheel', scrollCalendar);
-      // @ts-ignore
       document.removeEventListener('click', closeCalendar);
     };
   }, [scrollCalendar, closeCalendar]);

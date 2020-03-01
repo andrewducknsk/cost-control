@@ -3,11 +3,10 @@ import Styled from './button-styled';
 import { useCustomDispatch } from '../../hooks';
 import { actionTypes } from '../../store/actions';
 
-// TODO: types
 interface IButtonProps {
   readonly label: string;
-  readonly action: string;
   readonly styleType: string;
+  readonly action?: string;
 }
 
 const Button: React.FC<IButtonProps> = ({ label, action, styleType }): JSX.Element => {

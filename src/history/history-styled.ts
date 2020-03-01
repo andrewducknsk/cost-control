@@ -10,6 +10,7 @@ const HistoryHeaderStyled = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 24px;
 `;
 
 const HistoryTitleStyled = styled.h2``;

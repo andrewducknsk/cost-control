@@ -34,7 +34,7 @@ const AddingNote: React.FC = (): JSX.Element => {
       ],
     },
     expenseDate: {
-      value: '2020-01-15',
+      value: '21.08.1996',
       validators: [dateFromFuture(), require()],
     },
     expenseAmount: {

@@ -12,18 +12,6 @@ interface IIconButton {
 
 const DateInputStyled = styled(BaseControlStyled('input'))<IDateInput>`
   ${props => (props.status ? ErrorControlStyled : '')};
-
-  &::-webkit-calendar-picker-indicator {
-    display: none;
-  }
-
-  &::-webkit-clear-button {
-    display: none;
-  }
-
-  &::-webkit-inner-spin-button {
-    display: none;
-  }
 `;
 
 const DateInputIconButtonStyled = styled.button<IIconButton>`
