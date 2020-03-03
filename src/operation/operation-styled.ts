@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const HistoryItemStyled = styled.div`
+const OperationStyled = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: -20px;
@@ -18,22 +18,22 @@ const HistoryItemStyled = styled.div`
   }
 `;
 
-const HistoryHeaderStyled = styled.div`
+const HeaderStyled = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const HistoryTextNameStyled = styled.p`
+const TextNameStyled = styled.p`
   font-size: 18px;
   line-height: 1.2;
 `;
 
-const HistoryBodyStyled = styled.div`
+const BodyStyled = styled.div`
   margin-top: 15px;
 `;
 
 export default {
-  HistoryItem: HistoryItemStyled,
-  Header: HistoryHeaderStyled,
-  TextName: HistoryTextNameStyled,
-  Body: HistoryBodyStyled,
+  Operation: OperationStyled,
+  Header: HeaderStyled,
+  TextName: TextNameStyled,
+  Body: BodyStyled,
 };

@@ -2,13 +2,13 @@ import React, { memo, useCallback, useContext, useEffect } from 'react';
 import CoreContext from '../core/core-context';
 import { useSelector } from 'react-redux';
 import Styled from './history-styled';
-import HistoryItem from './history-item';
 import Popup from '../popup';
 import AddingNote from '../adding-note';
 import { useCustomDispatch, usePopup } from '../hooks';
 import { actionTypes } from '../store/actions';
 import { IState } from '../store/reducers';
 import { Locale } from '../core/locale-interface';
+import Operation from '../operation/operation';
 
 interface IData extends Map<string, string> {
   readonly expenseName: string;
@@ -21,6 +21,7 @@ interface IData extends Map<string, string> {
 const History: React.FC = (): JSX.Element => {
   const [showPopup, scrollPosition, togglePopup] = usePopup(false);
   const { history }: { history: Locale.History } = useContext(CoreContext);
+  // immutable.js
   // @ts-ignore
   const data: Map<string, IData> = useSelector<IState>(state => state.history.data);
   const fetchData: (type: string) => void = useCustomDispatch();
@@ -29,18 +30,18 @@ const History: React.FC = (): JSX.Element => {
     fetchData(actionTypes.FETCH_HISTORY);
   }, []);
 
-  const renderItems: () => JSX.Element | Array<JSX.Element> = useCallback(() => {
+  const renderOperations: () => JSX.Element | Array<JSX.Element> = useCallback(() => {
     if (data.size === 0) {
       return <Styled.EmptyMessage>{history.emptyMessage}</Styled.EmptyMessage>;
     }
 
+    // immutable.js
     // @ts-ignore
     return data.map(item => (
-      <HistoryItem
-        name={item.get('expenseName')}
-        type={item.get('expenseType')}
-        date={item.get('expenseDate')}
-        amount={item.get('expenseAmount')}
+      <Operation
+        header={item.get('header')}
+        body={item.get('body')}
+        id={item.get('id')}
         key={item.get('id')}
       />
     ));
@@ -51,7 +52,7 @@ const History: React.FC = (): JSX.Element => {
       <Styled.Header>
         <Styled.Title>{history.title}</Styled.Title>
       </Styled.Header>
-      {renderItems()}
+      {renderOperations()}
       <Styled.Button onClick={togglePopup}>Push</Styled.Button>
       {showPopup && (
         <Popup onClose={togglePopup} scrollPosition={scrollPosition}>

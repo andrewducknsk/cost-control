@@ -3,8 +3,8 @@ import Styled from './text-input-styled';
 
 interface ITextInputProps {
   readonly name: string;
-  readonly status: string;
   readonly onChangeControl: (value: string, name: string) => void;
+  readonly status?: string;
   readonly value?: string;
   readonly placeholder?: string;
 }
@@ -16,8 +16,8 @@ interface IEventTarget {
 
 const TextInput: React.FC<ITextInputProps> = ({
   name,
-  status,
   onChangeControl,
+  status = '',
   value = '',
   placeholder = '',
 }): JSX.Element => {

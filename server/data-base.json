@@ -1,1 +1,44 @@
-[{"expenseName":"aas","expenseType":"","expenseDate":"2020-01-15","expenseAmount":"200","id":1},{"expenseName":"aas","expenseType":"","expenseDate":"2020-01-15","expenseAmount":200,"id":2},{"expenseName":"aasasd","expenseType":"","expenseDate":"2020-01-15","expenseAmount":200,"id":3},{"expenseName":"aas","expenseType":"","expenseDate":"2020-01-15","expenseAmount":200,"id":4},{"expenseName":"aas","expenseType":"","expenseDate":"2020-01-15","expenseAmount":"20054654","id":5},{"expenseName":"aas","expenseType":"","expenseDate":"2020-02-18","expenseAmount":200,"id":6}]
+[
+  {
+    "expenseName": "aas",
+    "expenseType": "",
+    "expenseDate": "15.01.2020",
+    "expenseAmount": "101",
+    "id": 1
+  },
+  {
+    "expenseName": "aas",
+    "expenseType": "",
+    "expenseDate": "15.01.2020",
+    "expenseAmount": "102",
+    "id": 2
+  },
+  {
+    "expenseName": "aasasd",
+    "expenseType": "",
+    "expenseDate": "15.01.2020",
+    "expenseAmount": "103",
+    "id": 3
+  },
+  {
+    "expenseName": "aas",
+    "expenseType": "",
+    "expenseDate": "15.01.2020",
+    "expenseAmount": "104",
+    "id": 4
+  },
+  {
+    "expenseName": "aas",
+    "expenseType": "",
+    "expenseDate": "15.01.2020",
+    "expenseAmount": "105",
+    "id": 5
+  },
+  {
+    "expenseName": "aas",
+    "expenseType": "",
+    "expenseDate": "18.02.2020",
+    "expenseAmount": "106",
+    "id": 6
+  }
+]
