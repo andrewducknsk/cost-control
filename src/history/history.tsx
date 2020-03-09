@@ -10,7 +10,7 @@ import { IState } from '../store/reducers';
 import { Locale } from '../core/locale-interface';
 import Operation from '../operation/operation';
 
-interface IData extends Map<string, string> {
+interface IData {
   readonly expenseName: string;
   readonly expenseType: string;
   readonly expenseDate: string;
@@ -38,12 +38,7 @@ const History: React.FC = (): JSX.Element => {
     // immutable.js
     // @ts-ignore
     return data.map(item => (
-      <Operation
-        header={item.get('header')}
-        body={item.get('body')}
-        id={item.get('id')}
-        key={item.get('id')}
-      />
+      <Operation header={item.get('header')} body={item.get('body')} key={item.get('id')} />
     ));
   }, [data, history]);
 

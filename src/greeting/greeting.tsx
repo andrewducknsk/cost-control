@@ -13,7 +13,31 @@ const Greeting: React.FC = (): JSX.Element => {
   return (
     <Styled.Greeting>
       <Styled.Title>{greeting.title}</Styled.Title>
-      <Styled.Description>{greeting.description}</Styled.Description>
+      <Styled.Description>
+        Во всю идет работа. <br />
+        Гусь очень старается. <br />
+        <hr />
+        <span style={{ display: 'inline-block', width: 'min-content' }}>
+          {`
+          ░░░ГУСЬ░░░РАБОТЯГА░░░░░░░░░
+          ░░░░░▄▀▀▀▄░░░░░░░░░░░░░░░░
+          ▄▄██▀░◐░░░▌░░░░░░░░░░░░░░░
+          ░░░░▌░░░░░▐░░░░░░░░░░░░░░░
+          ░░░░▐░░░░░▐░░░░░░░░░░░░░░░
+          ░░░░▐░░░░░▐░░░░░░░░░░░░░░░
+          ░░░░▌░░░░░▐░░░░░░░░░░░░░░░
+          ░░░░▌░░░░░▐▄▄░░░░░░░░░░░░░
+          ░░░░▌░░░░▄▀▒▒▀▀▀▀▄░░░░░░░░
+          ░░░▐░░░░▐▒▒▒▒▒▒▒▒▀▀▄░░░░░░
+          ░░░▐░░░░▐▄▒▒▒▒▒▒▒▒▒▒▀▄░░░░
+          ░░░░▀▄░░░░▀▄▒▒▒▒▒▒▒▒▒▒▀▄░░
+          ░░░░░░▀▄▄▄▄▄█▄▄▄▄▄▄▄▄▄▄▄▀▄
+          ░░░░░░░░░░░▌▌▌▌░░░░░░░░░░░
+          ░░░░░░░░░░░▌▌░▌▌░░░░░░░░░░
+          ░░░░░░░░░▄▄▌▌▄▌▌░░░░░░░░░░
+      `}
+        </span>
+      </Styled.Description>
       <Styled.Button onClick={togglePopup}>{greeting.buttonLabel}</Styled.Button>
       {showPopup && (
         <Popup onClose={togglePopup} scrollPosition={scrollPosition}>

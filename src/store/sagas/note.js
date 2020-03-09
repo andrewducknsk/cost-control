@@ -4,15 +4,15 @@ import request from '../../utils/api';
 import { requestPaths } from '../request-config';
 
 function* postNote({ payload }) {
-	try {
-		const postResponse = yield call(request, requestPaths.postNote, 'POST', payload);
+  try {
+    const postResponse = yield call(request, requestPaths.postNote, 'POST', payload);
 
-		yield put({ type: actionTypes.SUCCESS_POST_NOTE, payload: postResponse });
-	} catch (e) {
-		yield put({ type: actionTypes.ERROR_POST_NOTE });
-	}
+    yield put({ type: actionTypes.SUCCESS_POST_NOTE, payload: postResponse });
+  } catch (e) {
+    yield put({ type: actionTypes.ERROR_POST_NOTE, payload: JSON.parse(e) });
+  }
 }
 
 export const onPostNote = function*() {
-	yield takeLatest(actionTypes.POST_NOTE, postNote);
+  yield takeLatest(actionTypes.POST_NOTE, postNote);
 };

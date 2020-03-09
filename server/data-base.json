@@ -7,38 +7,10 @@
     "id": 1
   },
   {
-    "expenseName": "aas",
+    "expenseName": "aasqwe",
     "expenseType": "",
-    "expenseDate": "15.01.2020",
-    "expenseAmount": "102",
+    "expenseDate": "21.08.1996",
+    "expenseAmount": 200,
     "id": 2
-  },
-  {
-    "expenseName": "aasasd",
-    "expenseType": "",
-    "expenseDate": "15.01.2020",
-    "expenseAmount": "103",
-    "id": 3
-  },
-  {
-    "expenseName": "aas",
-    "expenseType": "",
-    "expenseDate": "15.01.2020",
-    "expenseAmount": "104",
-    "id": 4
-  },
-  {
-    "expenseName": "aas",
-    "expenseType": "",
-    "expenseDate": "15.01.2020",
-    "expenseAmount": "105",
-    "id": 5
-  },
-  {
-    "expenseName": "aas",
-    "expenseType": "",
-    "expenseDate": "18.02.2020",
-    "expenseAmount": "106",
-    "id": 6
   }
 ]

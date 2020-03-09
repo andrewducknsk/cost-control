@@ -6,8 +6,8 @@ export interface IFormControlProps {
   readonly label: string;
   readonly control: any;
   readonly onChange: (value: string, name: string) => void;
-  readonly message: string;
   readonly [otherProps: string]: any;
+  readonly message?: string;
 }
 
 const FormControl: React.FC<IFormControlProps> = ({

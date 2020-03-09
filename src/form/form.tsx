@@ -4,8 +4,8 @@ import { IRef } from '../adding-note/adding-note';
 
 interface IForm {
   readonly children: React.ReactElement;
-  readonly defaultData: IDefaultData;
-  readonly formRef: React.Ref<IRef>;
+  readonly defaultData?: IDefaultData;
+  readonly formRef?: React.Ref<IRef>;
 }
 
 interface IDefaultDataItem {

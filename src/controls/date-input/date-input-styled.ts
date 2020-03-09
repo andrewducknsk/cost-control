@@ -6,7 +6,7 @@ interface IDateInput {
 }
 
 interface IIconButton {
-  readonly iconUrl: string;
+  readonly icon: string;
   readonly type: string;
 }
 
@@ -22,7 +22,7 @@ const DateInputIconButtonStyled = styled.button<IIconButton>`
 	width: 20px;
 	height: 20px;
 	padding: 0;
-	background: url("${props => props.iconUrl}");
+	background: url("${props => props.icon}") center no-repeat;
 	background-size: contain;
 	border: none;
 	cursor: pointer;

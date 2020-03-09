@@ -1,8 +1,8 @@
 import React, { memo, useState } from 'react';
 import Styled from './date-input-styled';
-import calendarIcon from '../../icon/calendar-icon.svg';
 import Calendar from '../../calendar';
 import { ICalendarReturnType } from '../../calendar/calendar';
+import { Icons } from '../../icon';
 
 interface IDateInputProps {
   readonly name: string;
@@ -30,7 +30,7 @@ const DateInput: React.FC<IDateInputProps> = ({
   value,
   placeholder = DEFAULT_PLACEHOLDER,
   showIcon = true,
-  iconUrl = calendarIcon,
+  iconUrl = Icons.calendar,
 }): JSX.Element => {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
@@ -67,9 +67,7 @@ const DateInput: React.FC<IDateInputProps> = ({
   // TODO: сделать возможность переиспользовать TextInput
   return (
     <>
-      {showIcon && (
-        <Styled.IconButton iconUrl={iconUrl} onClick={toggleShowCalendar} type="button" />
-      )}
+      {showIcon && <Styled.IconButton icon={iconUrl} onClick={toggleShowCalendar} type="button" />}
       {showCalendar && <Calendar onChange={getDateCalendar} onClose={toggleShowCalendar} />}
       <Styled.DateInput
         name={name}

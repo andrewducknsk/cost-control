@@ -17,9 +17,6 @@ interface IWeeks {
 
 export interface ICalendarReturnType {
   [key: string]: number;
-  // readonly day: number;
-  // readonly month: number;
-  // readonly year: number;
 }
 
 const monthName: IMonthName = {

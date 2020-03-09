@@ -9,6 +9,10 @@ export interface IHistoryState {
   isFetched: boolean;
 }
 
+interface IPayload {
+  readonly data: Array<IHistoryItem>;
+}
+
 interface IHistoryItem {
   readonly expenseName: string;
   readonly expenseType: string;
@@ -17,57 +21,58 @@ interface IHistoryItem {
   readonly id: string;
 }
 
-interface IPayload {
-  readonly data: Array<IHistoryItem>;
+interface ITransformedDataItem {
+  readonly label: string;
+  readonly value: string | number;
+  readonly name: string;
+  readonly type: string;
 }
 
 interface ITransformedData {
   header: Array<ITransformedDataItem>;
   body: Array<ITransformedDataItem>;
+  id: string;
 }
 
-interface ITransformedDataItem {
-  readonly label: string;
-  readonly value: string | number;
-  readonly type: string;
-}
+const transformedPayload: (data: Array<IHistoryItem>) => Array<ITransformedData> = data =>
+  data.map((item: IHistoryItem) => {
+    const operation: ITransformedData = { header: [], body: [], id: item.id };
+
+    operation.header.push(
+      { label: 'Name', value: item.expenseName, name: 'expenseName', type: 'text' },
+      { label: 'Amount', value: item.expenseAmount, name: 'expenseAmount', type: 'text' }
+    );
+
+    operation.body.push(
+      { label: 'Type', value: item.expenseType, name: 'expenseType', type: 'text' },
+      { label: 'Date', value: item.expenseDate, name: 'expenseDate', type: 'text' }
+    );
+
+    return operation;
+  });
 
 // TODO: подробнее типизировать
 export const history = handleActions<IHistoryState, IPayload>(
   {
-    [actionTypes.SUCCESS_FETCH_HISTORY]: (state, { payload }) => {
-      const transformedData = payload.data.map((item: IHistoryItem) => {
-        const operation = { header: [], body: [], id: item.id } as ITransformedData;
-
-        operation.header.push(
-          { label: 'Name', value: item.expenseName, type: 'text' },
-          { label: 'Amount', value: item.expenseAmount, type: 'text' }
-        );
-
-        operation.body.push(
-          { label: 'Type', value: item.expenseType, type: 'text' },
-          { label: 'Date', value: item.expenseDate, type: 'text' }
-        );
-
-        return operation;
-      });
-
-      return {
-        ...state,
-        data: fromJS(transformedData),
-        isLoading: false,
-        isFetched: true,
-      };
-    },
+    [actionTypes.SUCCESS_FETCH_HISTORY]: (state, { payload }) => ({
+      ...state,
+      data: fromJS(transformedPayload(payload.data)),
+      isLoading: false,
+      isFetched: true,
+    }),
     [actionTypes.FETCH_HISTORY]: state => ({
       ...state,
       isLoading: true,
     }),
     // TODO: ренэйм
-    [actionTypes.SUCCESS_POST_NOTE]: (state, { payload }) => ({
-      ...state,
-      data: state.data.push(fromJS(payload.data)),
-    }),
+    [actionTypes.SUCCESS_POST_NOTE]: (state, { payload }) => {
+      const transformedNote = transformedPayload(payload.data);
+
+      return {
+        ...state,
+        data: state.data.push(fromJS(transformedNote[0])),
+      };
+    },
   },
   {
     data: List(),
